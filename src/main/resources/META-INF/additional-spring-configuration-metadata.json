@@ -1,0 +1,12 @@
+{"properties": [
+  {
+    "name": "omdb.api.key",
+    "type": "java.lang.String",
+    "description": "A description for 'omdb.api.key'"
+  },
+  {
+    "name": "omdb.api.url",
+    "type": "java.lang.String",
+    "description": "A description for 'omdb.api.url'"
+  }
+]}
