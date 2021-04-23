@@ -5,8 +5,13 @@
     "description": "A description for 'omdb.api.key'"
   },
   {
-    "name": "omdb.api.url",
+    "name": "omdb.api.url.search",
     "type": "java.lang.String",
     "description": "A description for 'omdb.api.url'"
+  },
+  {
+    "name": "omdb.api.url.id",
+    "type": "java.lang.String",
+    "description": "A description for 'omdb.api.url.id'"
   }
 ]}

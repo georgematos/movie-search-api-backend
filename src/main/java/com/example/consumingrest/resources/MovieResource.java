@@ -15,7 +15,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
 @RestController
-@RequestMapping(value = "/search")
+@RequestMapping(value = "/movieapi")
 public class MovieResource {
 
 	
@@ -26,13 +26,22 @@ public class MovieResource {
 		this.service = service;
 	}
 
-	@GetMapping
-	public ResponseEntity<List<Movie>> searchMovie(@RequestParam String name)
+	@GetMapping("/search")
+	public ResponseEntity<List<Movie>> searchMovies(@RequestParam String name)
 			throws JsonMappingException, JsonProcessingException {
 
 		List<Movie> movies = service.search(name);
 
 		return ResponseEntity.ok().body(movies);
+	}
+	
+	@GetMapping("/movie")
+	public ResponseEntity<Movie> getMovie(@RequestParam String id)
+			throws JsonMappingException, JsonProcessingException {
+
+		Movie movie = service.getMovie(id);
+
+		return ResponseEntity.ok().body(movie);
 	}
 
 }

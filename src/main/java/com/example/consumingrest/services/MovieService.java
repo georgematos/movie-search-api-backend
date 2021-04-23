@@ -20,8 +20,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Service
 public class MovieService {
 
-	@Value("${omdb.api.url}")
-	private String resourceUrl;
+	@Value("${omdb.api.url.search}")
+	private String resourceUrlSearch;
+
+	@Value("${omdb.api.url.id}")
+	private String resourceUrlId;
 
 	@Value("${omdb.api.key}")
 	private String apiKey;
@@ -37,12 +40,9 @@ public class MovieService {
 
 		List<Movie> movies = new ArrayList<>();
 
-		StringBuilder stringBuilder = new StringBuilder();
-		Formatter fmt = new Formatter(stringBuilder);
-		fmt.format(resourceUrl, name, apiKey);
-		String finalUrl = fmt.toString();
+		String finalUrl = getFinalUrl(name, resourceUrlSearch);
+
 		ResponseEntity<String> response = restTemplate.getForEntity(finalUrl, String.class);
-		fmt.close();
 
 		ObjectMapper mapper = new ObjectMapper();
 
@@ -63,7 +63,6 @@ public class MovieService {
 				movie.setPoster(poster.asText());
 
 				movies.add(movie);
-
 			});
 		} catch (JsonMappingException e) {
 			e.printStackTrace();
@@ -72,6 +71,50 @@ public class MovieService {
 		}
 
 		return movies;
+	}
+
+	public Movie getMovie(String id) {
+
+		Movie movie = new Movie();
+
+		String finalUrl = getFinalUrl(id, resourceUrlId);
+
+		ResponseEntity<String> response = restTemplate.getForEntity(finalUrl, String.class);
+
+		ObjectMapper mapper = new ObjectMapper();
+
+		try {
+			JsonNode root = mapper.readTree(response.getBody());
+
+			movie.setId(root.path("imdbID").asText());
+			movie.setTitle(root.path("Title").asText());
+			movie.setYear(root.path("Year").asText());
+			movie.setPoster(root.path("Poster").asText());
+			movie.setActors(root.path("Actors").asText());
+			movie.setCountry(root.path("Country").asText());
+			movie.setDirector(root.path("Director").asText());
+			movie.setGenre(root.path("Genre").asText());
+			movie.setLanguage(root.path("Language").asText());
+			movie.setRuntime(root.path("Runtime").asText());
+			movie.setImdbRating(root.path("imdbRating").asText());
+			movie.setWriter(root.path("Writer").asText());
+
+		} catch (JsonMappingException e) {
+			e.printStackTrace();
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+
+		return movie;
+	}
+
+	private String getFinalUrl(String id, String resourceUrl) {
+		StringBuilder stringBuilder = new StringBuilder();
+		Formatter fmt = new Formatter(stringBuilder);
+		fmt.format(resourceUrl, id, apiKey);
+		String finalUrl = fmt.toString();
+		fmt.close();
+		return finalUrl;
 	}
 
 }
