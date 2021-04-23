@@ -12,7 +12,7 @@ Execute the server directly from STS or run: ./mvnw spring-boot:run
 ## Endpoints
 
 ### search movies
-#### /movieapi/search?name={movie_title}
+#### `/movieapi/search?name={movie_title}`
 
 ### get movie
-#### /movieapi/movie?id={movie_imdb_id}
+#### `/movieapi/movie?id={movie_imdb_id}`
