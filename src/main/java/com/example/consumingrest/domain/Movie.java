@@ -17,8 +17,8 @@ public class Movie {
 	private String language;
 	private String country;
 	private String imdbRating;
-	
-	
+	private String plot;
+
 	public String getRuntime() {
 		return runtime;
 	}
@@ -116,6 +116,14 @@ public class Movie {
 
 	public void setPoster(String poster) {
 		this.poster = poster;
+	}
+
+	public String getPlot() {
+		return plot;
+	}
+
+	public void setPlot(String plot) {
+		this.plot = plot;
 	}
 
 }

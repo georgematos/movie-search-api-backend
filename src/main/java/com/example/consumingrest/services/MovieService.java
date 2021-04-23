@@ -98,6 +98,7 @@ public class MovieService {
 			movie.setRuntime(root.path("Runtime").asText());
 			movie.setImdbRating(root.path("imdbRating").asText());
 			movie.setWriter(root.path("Writer").asText());
+			movie.setPlot(root.path("Plot").asText());
 
 		} catch (JsonMappingException e) {
 			e.printStackTrace();
