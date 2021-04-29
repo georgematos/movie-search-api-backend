@@ -5,8 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.consumingrest.domain.Movie;
@@ -26,8 +27,8 @@ public class MovieResource {
 		this.service = service;
 	}
 
-	@GetMapping("/search")
-	public ResponseEntity<List<Movie>> searchMovies(@RequestParam String name)
+	@GetMapping("/search/{name}")
+	public ResponseEntity<List<Movie>> searchMovies(@PathVariable String name)
 			throws JsonMappingException, JsonProcessingException {
 
 		List<Movie> movies = service.search(name);
@@ -35,8 +36,8 @@ public class MovieResource {
 		return ResponseEntity.ok().body(movies);
 	}
 	
-	@GetMapping("/movie")
-	public ResponseEntity<Movie> getMovie(@RequestParam String id)
+	@GetMapping("/{id}")
+	public ResponseEntity<Movie> getMovie(@PathVariable String id)
 			throws JsonMappingException, JsonProcessingException {
 
 		Movie movie = service.getMovie(id);

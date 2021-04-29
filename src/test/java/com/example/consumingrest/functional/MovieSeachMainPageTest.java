@@ -1,4 +1,4 @@
-package com.example.consumingrest;
+package com.example.consumingrest.functional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -13,7 +13,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class GoogleSeachPageSeleniumTests {
+public class MovieSeachMainPageTest {
 
 	private WebDriver driver;
 

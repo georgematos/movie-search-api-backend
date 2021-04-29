@@ -1,4 +1,4 @@
-package com.example.consumingrest;
+package com.example.consumingrest.functional;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
