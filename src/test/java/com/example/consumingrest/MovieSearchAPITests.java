@@ -16,11 +16,13 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class MovieSearchAPITests {
 
 	private WebDriver driver;
+	private WebDriverWait wait;
 
 	@BeforeEach
 	public void openBrowser() {
 		System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver");
 		driver = new ChromeDriver();
+		wait = new WebDriverWait(driver, 2000);
 	}
 
 	@AfterEach
@@ -30,16 +32,7 @@ public class MovieSearchAPITests {
 
 	@Test
 	public void shouldSearchMoviesForTitleAndShowAListWithAllMoviesContainingIt() throws InterruptedException {
-		driver.get("http://localhost:3000/");
-		driver.manage().window().setSize(new Dimension(960, 1080));
-		WebDriverWait wait = new WebDriverWait(driver, 2000);
-
-		WebElement searchBar = driver.findElement(By.id("homeSearchBar"));
-		searchBar.click();
-		searchBar.sendKeys("star wars");
-
-		WebElement searchButton = driver.findElement(By.id("homeSearchButton"));
-		searchButton.click();
+		searchMovieAuxiliarMethod("star wars");
 
 		wait.until(ExpectedConditions.presenceOfElementLocated(By.className("Card")));
 
@@ -57,17 +50,7 @@ public class MovieSearchAPITests {
 
 	@Test
 	public void shoudClickOnMovieAndShowDetails() {
-
-		driver.get("http://localhost:3000/");
-		driver.manage().window().setSize(new Dimension(960, 1080));
-		WebDriverWait wait = new WebDriverWait(driver, 2000);
-
-		WebElement searchBar = driver.findElement(By.id("homeSearchBar"));
-		searchBar.click();
-		searchBar.sendKeys("star wars");
-
-		WebElement searchButton = driver.findElement(By.id("homeSearchButton"));
-		searchButton.click();
+		searchMovieAuxiliarMethod("star wars");
 
 		WebElement expectedElement = wait.until(ExpectedConditions.presenceOfElementLocated(By.className("Card")));
 
@@ -77,6 +60,18 @@ public class MovieSearchAPITests {
 
 		assertEquals(movieContent.findElement(By.id("movieDetailsTitle")).getText(),
 				"Star Wars: Episode IV - A New Hope");
+	}
+	
+	private void searchMovieAuxiliarMethod(String title) {
+		driver.get("http://localhost:3000/");
+		driver.manage().window().setSize(new Dimension(960, 1080));
+
+		WebElement searchBar = driver.findElement(By.id("homeSearchBar"));
+		searchBar.click();
+		searchBar.sendKeys(title);
+
+		WebElement searchButton = driver.findElement(By.id("homeSearchButton"));
+		searchButton.click();
 	}
 
 }
