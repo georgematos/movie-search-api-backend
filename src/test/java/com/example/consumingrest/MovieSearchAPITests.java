@@ -58,10 +58,15 @@ public class MovieSearchAPITests {
 
 		WebElement movieContent = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("movieDetailsContent")));
 
-		assertEquals(movieContent.findElement(By.id("movieDetailsTitle")).getText(),
-				"Star Wars: Episode IV - A New Hope");
+		String title = movieContent.findElement(By.id("movieDetailsTitle")).getText();
+		String year = movieContent.findElement(By.id("movieDetailsYear")).getText();
+		String genre = movieContent.findElement(By.id("movieDetailsGenre")).getText();
+
+		assertEquals(title, "Star Wars: Episode IV - A New Hope");
+		assertEquals(year, "1977");
+		assertEquals(genre, "Genre: Action, Adventure, Fantasy, Sci-Fi");
 	}
-	
+
 	private void searchMovieAuxiliarMethod(String title) {
 		driver.get("http://localhost:3000/");
 		driver.manage().window().setSize(new Dimension(960, 1080));
